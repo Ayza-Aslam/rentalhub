@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  GUEST
+  HOST
+  ADMIN
+}
+
+model User {
+  id             String  @id @default(cuid())
+  name           String?
+  email          String  @unique
+  hashedPassword String
+  role           Role    @default(GUEST)
+
+  createdAt DateTime @default(now())
+
+  listings        Listing[]
+  bookingsAsGuest Booking[]
+}
+
+model Listing {
+  id     String @id @default(cuid())
+  hostId String
+  host   User   @relation(fields: [hostId], references: [id])
+
+  title         String
+  description   String
+  pricePerNight Int
+  maxGuests     Int
+
+  city    String
+  country String
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  bookings Booking[]
+}
+
+
+    //Booking
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model Booking {
+  id        String  @id @default(cuid())
+  listingId String
+  listing   Listing @relation(fields: [listingId], references: [id])
+  guestId   String
+  guest     User    @relation(fields: [guestId], references: [id])
+
+  checkIn  DateTime @db.Date
+  checkOut DateTime @db.Date
+
+  status BookingStatus @default(PENDING)
+
+  totalPrice Int
+
+  createdAt DateTime @default(now())
+}
