@@ -1,0 +1,79 @@
+.main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.heading {
+  font-size: 26px;
+  margin-bottom: 24px;
+}
+
+.status {
+  color: #666;
+  padding: 20px 0;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.statCard {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.sectionHeading {
+  font-size: 18px;
+  margin: 24px 0 12px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bookingCard,
+.listingCard {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.bookingTitle {
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.bookingDates {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 4px;
+}
+
+.bookingPrice {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}

@@ -1,12 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { PrismaClient } from "../generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 export interface AuthRequest extends Request {
   userId?: string;
   userRole?: string;
 }
 
-export function requireAuth(req: AuthRequest, res: Response, next: NextFunction) {
+export async function requireAuth(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -20,6 +25,12 @@ export function requireAuth(req: AuthRequest, res: Response, next: NextFunction)
       id: string;
       role: string;
     };
+
+    const user = await prisma.user.findUnique({ where: { id: payload.id } });
+
+    if (!user || user.isSuspended) {
+      return res.status(403).json({ error: "This account has been suspended" });
+    }
 
     req.userId = payload.id;
     req.userRole = payload.role;

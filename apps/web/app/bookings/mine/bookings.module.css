@@ -1,0 +1,55 @@
+.main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.heading {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.status {
+  color: #666;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cardTitle {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+.cardLocation {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 4px;
+}
+
+.cardDates {
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+}
+
+.cardPrice {
+  font-size: 15px;
+  font-weight: 600;
+}

@@ -25,10 +25,14 @@ model User {
   hashedPassword String
   role           Role    @default(GUEST)
 
+  stripeAccountId String?
+
   createdAt DateTime @default(now())
 
   listings        Listing[]
   bookingsAsGuest Booking[]
+
+  isSuspended Boolean @default(false)
 }
 
 model Listing {
@@ -44,6 +48,7 @@ model Listing {
   city    String
   country String
 
+  photoUrl  String? 
   isActive Boolean @default(true)
 
   createdAt DateTime @default(now())
@@ -72,6 +77,58 @@ model Booking {
   status BookingStatus @default(PENDING)
 
   totalPrice Int
+
+  stripeSessionId String?
+
+
+  createdAt DateTime @default(now())
+}
+
+
+model Conversation {
+  id        String   @id @default(cuid())
+  listingId String
+  guestId   String
+  hostId    String
+
+  createdAt DateTime @default(now())
+
+  messages Message[]
+
+  @@unique([listingId, guestId])
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderId       String
+
+  content String
+
+  createdAt DateTime @default(now())
+}
+
+
+model Notification {
+  id     String  @id @default(cuid())
+  userId String
+  type   String
+  title  String
+  body   String
+  link   String?
+  isRead Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  bookingId String   @unique
+  listingId String
+  guestId   String
+  rating    Int
+  comment   String
 
   createdAt DateTime @default(now())
 }

@@ -1,0 +1,98 @@
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.heading {
+  font-size: 26px;
+  margin-bottom: 24px;
+}
+
+.status {
+  color: #666;
+  padding: 20px 0;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.statCard {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+
+.statValue {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+.sectionHeading {
+  font-size: 18px;
+  margin: 24px 0 12px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+
+.rowTitle {
+  font-weight: 600;
+  margin: 0 0 2px;
+}
+
+.rowSub {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+}
+
+.badgeActive {
+  font-size: 12px;
+  background: #e6f4ea;
+  color: #1e7e34;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.badgeSuspended {
+  font-size: 12px;
+  background: #fdeaea;
+  color: #c0392b;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+
+.actionButton {
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
