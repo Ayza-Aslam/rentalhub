@@ -1,7 +1,12 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth }: {
+  handlers: any;
+  signIn: any;
+  signOut: any;
+  auth: any;
+} = NextAuth({
   providers: [
     Credentials({
       credentials: {
