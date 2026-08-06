@@ -31,9 +31,9 @@ export const { handlers, signIn, signOut, auth }: {
  callbacks: {
   jwt: async ({ token, user }) => {
     if (user) {
-      token.role = user.role;
-      token.id = user.id;
-      token.apiToken = user.apiToken;
+      token.role = (user as any).role;
+      token.id = (user as any).id;
+      token.apiToken = (user as any).apiToken;
     }
     return token;
   },
