@@ -239,7 +239,7 @@ app.get("/listings/:id", async (req, res) => {
 
   const averageRating =
     reviews.length > 0
-      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+     ? reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / reviews.length
       : null;
 
   res.json({ ...listing, reviews, averageRating });
@@ -684,7 +684,7 @@ app.get("/host/dashboard", requireAuth, requireRole("HOST"), async (req: AuthReq
     orderBy: { createdAt: "desc" },
   });
 
-  const listingIds = listings.map((l) => l.id);
+  const listingIds = listings.map((l: any) => l.id);
 
   const bookings = await prisma.booking.findMany({
     where: {
@@ -698,12 +698,12 @@ app.get("/host/dashboard", requireAuth, requireRole("HOST"), async (req: AuthReq
   });
 
   const now = new Date();
-  const upcomingBookings = bookings.filter((b) => new Date(b.checkOut) >= now);
-  const pastBookings = bookings.filter((b) => new Date(b.checkOut) < now);
+  const upcomingBookings = bookings.filter((b: any) => new Date(b.checkOut) >= now);
+  const pastBookings = bookings.filter((b: any) => new Date(b.checkOut) < now);
 
   const platformFeePercent = 0.1;
   const totalEarnings = bookings.reduce(
-    (sum, b) => sum + Math.round(b.totalPrice * (1 - platformFeePercent)),
+    (sum: number, b: any) => sum + Math.round(b.totalPrice * (1 - platformFeePercent)),
     0
   );
 
@@ -781,10 +781,10 @@ app.get("/admin/dashboard", requireAuth, requireRole("ADMIN"), async (req: AuthR
 
   const platformFeePercent = 0.1;
   const totalPlatformRevenue = allBookings.reduce(
-    (sum, b) => sum + Math.round(b.totalPrice * platformFeePercent),
+    (sum: number, b: any) => sum + Math.round(b.totalPrice * platformFeePercent),
     0
   );
-  const totalGrossVolume = allBookings.reduce((sum, b) => sum + b.totalPrice, 0);
+  const totalGrossVolume = allBookings.reduce((sum: number, b: any) => sum + b.totalPrice, 0);
 
   const totalUsers = await prisma.user.count();
   const totalListings = await prisma.listing.count();
