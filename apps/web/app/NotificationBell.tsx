@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { socket } from "@/lib/socket";
 import Link from "next/link";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 type Notification = {
   id: string;
@@ -23,7 +24,7 @@ export default function NotificationBell() {
   useEffect(() => {
     if (!session) return;
 
-    fetch("http://localhost:4000/notifications", {
+    fetch(`${API_URL}/notifications`, {
       headers: { Authorization: `Bearer ${session.user.apiToken}` },
     })
       .then((res) => res.json())
@@ -43,7 +44,7 @@ export default function NotificationBell() {
 
   async function markRead(id: string) {
     if (!session) return;
-    await fetch(`http://localhost:4000/notifications/${id}/read`, {
+    await fetch(`${API_URL}/notifications/${id}/read`, {
       method: "POST",
       headers: { Authorization: `Bearer ${session.user.apiToken}` },
     });

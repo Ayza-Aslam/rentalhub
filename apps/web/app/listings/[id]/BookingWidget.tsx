@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import styles from "./listing.module.css";
 import { socket } from "@/lib/socket";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export default function BookingWidget({
   listingId,
@@ -23,14 +24,14 @@ export default function BookingWidget({
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-  fetch(`http://localhost:4000/listings/${listingId}/availability`)
+ fetch(`${API_URL}/listings/${listingId}/availability`)
     .then((res) => res.json())
     .then(setBookedRanges);
 
   socket.emit("join-listing", listingId);
 
   function handleAvailabilityUpdate() {
-    fetch(`http://localhost:4000/listings/${listingId}/availability`)
+    fetch(`${API_URL}/listings/${listingId}/availability`)
       .then((res) => res.json())
       .then(setBookedRanges);
   }
@@ -66,7 +67,7 @@ export default function BookingWidget({
 
   setSubmitting(true);
 
-  const res = await fetch("http://localhost:4000/bookings", {
+  const res = await fetch(`${API_URL}/bookings`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

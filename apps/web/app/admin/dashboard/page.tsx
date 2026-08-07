@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "./admin.module.css";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export default function AdminDashboardPage() {
   const { data: session, status } = useSession();
@@ -11,7 +12,7 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     if (!session) return;
 
-    fetch("http://localhost:4000/admin/dashboard", {
+    fetch(`${API_URL}/admin/dashboard`, {
       headers: { Authorization: `Bearer ${session.user.apiToken}` },
     })
       .then((res) => res.json())
@@ -19,7 +20,7 @@ export default function AdminDashboardPage() {
   }, [session]);
 
   async function toggleUserSuspend(userId: string) {
-    await fetch(`http://localhost:4000/admin/users/${userId}/suspend`, {
+    await fetch(`${API_URL}/admin/users/${userId}/suspend`, {
       method: "POST",
       headers: { Authorization: `Bearer ${session!.user.apiToken}` },
     });
@@ -32,7 +33,7 @@ export default function AdminDashboardPage() {
   }
 
   async function toggleListingActive(listingId: string) {
-    await fetch(`http://localhost:4000/admin/listings/${listingId}/moderate`, {
+      await fetch(`${API_URL}/admin/listings/${listingId}/moderate`, {
       method: "POST",
       headers: { Authorization: `Bearer ${session!.user.apiToken}` },
     });

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import styles from "./dashboard.module.css";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export default function HostDashboardPage() {
   const { data: session, status } = useSession();
@@ -12,7 +13,7 @@ export default function HostDashboardPage() {
   useEffect(() => {
     if (!session) return;
 
-    fetch("http://localhost:4000/host/dashboard", {
+    fetch(`${API_URL}/host/dashboard`, {
       headers: { Authorization: `Bearer ${session.user.apiToken}` },
     })
       .then((res) => res.json())

@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export default function ConnectRefreshPage() {
   const { data: session } = useSession();
@@ -10,7 +11,7 @@ export default function ConnectRefreshPage() {
   useEffect(() => {
     if (!session) return;
 
-    fetch("http://localhost:4000/host/connect", {
+    fetch(`${API_URL}/host/connect`, {
       method: "POST",
       headers: { Authorization: `Bearer ${session.user.apiToken}` },
     })

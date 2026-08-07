@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import styles from "./bookings.module.css";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export default function MyBookingsPage() {
   const { data: session, status } = useSession();
@@ -13,7 +14,7 @@ export default function MyBookingsPage() {
   useEffect(() => {
     if (!session) return;
 
-    fetch("http://localhost:4000/bookings/mine", {
+    fetch(`${API_URL}/bookings/mine`, {
       headers: { Authorization: `Bearer ${session.user.apiToken}` },
     })
       .then((res) => res.json())

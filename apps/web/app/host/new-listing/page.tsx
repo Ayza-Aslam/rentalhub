@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import styles from "./form.module.css";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export default function NewListingPage() {
   const { data: session, status } = useSession();
@@ -35,7 +36,7 @@ export default function NewListingPage() {
     setError(null);
     setSubmitting(true);
 
-    const res = await fetch("http://localhost:4000/listings", {
+    const res = await fetch(`${API_URL}/listings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
