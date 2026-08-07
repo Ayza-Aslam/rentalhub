@@ -81,7 +81,12 @@ app.post("/webhooks/stripe", express.raw({ type: "application/json" }), async (r
   res.json({ received: true });
 });
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    process.env.FRONTEND_URL || "",
+  ].filter(Boolean),
+}));
 
 
 cloudinary.config({                                
@@ -868,7 +873,10 @@ const httpServer = createServer(app);
 
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      process.env.FRONTEND_URL || "",
+    ].filter(Boolean),
   },
 });
 
