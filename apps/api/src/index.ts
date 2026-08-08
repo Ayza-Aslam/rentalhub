@@ -466,8 +466,8 @@ app.post("/bookings", requireAuth, async (req: AuthRequest, res) => {
         destination: host.stripeAccountId,
       },
     },
-    success_url: `http://localhost:3000/bookings/mine?success=true`,
-    cancel_url: `http://localhost:3000/listings/${listingId}?canceled=true`,
+    success_url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/bookings/mine?success=true`,
+    cancel_url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/listings/${listingId}?canceled=true`,
     metadata: { bookingId: booking.id },
   });
 
@@ -752,8 +752,8 @@ app.post("/host/connect", requireAuth, requireRole("HOST"), async (req: AuthRequ
 
   const accountLink = await stripe.accountLinks.create({
     account: accountId,
-    refresh_url: "http://localhost:3000/host/connect/refresh",
-    return_url: "http://localhost:3000/host/connect/complete",
+    refresh_url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/host/connect/refresh`,
+    return_url: `${process.env.FRONTEND_URL || "http://localhost:3000"}/host/connect/complete`,
     type: "account_onboarding",
   });
 
